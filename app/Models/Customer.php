@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Customer extends Model
+{
+    use SoftDeletes;
+
+    protected $fillable = [
+        'nome',
+        'email',
+        'cpf_cnpj',
+        'telefone',
+        'endereco',
+        'endereco_numero',
+        'endereco_complemento',
+        'bairro',
+        'cidade',
+        'estado',
+        'cep',
+        'pais',
+    ];
+
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
+
+    public function sales(): HasMany
+    {
+        return $this->hasMany(Sale::class);
+    }
+
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function getNomeDocumentoAttribute(): string
+    {
+        if ($this->cpf_cnpj) {
+            return "{$this->nome} - {$this->cpf_cnpj}";
+        }
+
+        return $this->nome;
+    }
+
+    public function getEnderecoCompletoAttribute(): string
+    {
+        return collect([
+            $this->endereco,
+            $this->endereco_numero,
+            $this->endereco_complemento,
+            $this->bairro,
+            $this->cidade,
+            $this->estado,
+            $this->cep,
+            $this->pais,
+        ])->filter()->implode(', ');
+    }
+
+    public function getTemEnderecoCompletoAttribute(): bool
+    {
+        return filled($this->endereco)
+            && filled($this->cidade)
+            && filled($this->estado)
+            && filled($this->cep);
+    }
+}
