@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -44,5 +45,17 @@ class ImportBatch extends Model
     public function processedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'processed_by');
+    }
+
+    /**
+     * Filtro por empresa.
+     */
+    public function scopeForCompany(Builder $query, ?int $companyId = null): Builder
+    {
+        if ($companyId === null) {
+            $companyId = auth()->user()?->company_id;
+        }
+
+        return $query->where('company_id', $companyId);
     }
 }

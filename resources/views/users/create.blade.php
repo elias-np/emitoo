@@ -6,53 +6,64 @@
         </div>
 
         <div class="bg-white overflow-hidden shadow sm:rounded-lg p-6">
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('users.store') }}">
                 @csrf
 
+                <!-- Nome -->
                 <div>
-                    <x-label for="name" value="{{ __('Name') }}" />
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                        autofocus autocomplete="name" />
+                    <x-label for="name" value="Nome" />
+                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                    @error('name')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
+                <!-- Email -->
                 <div class="mt-4">
-                    <x-label for="email" value="{{ __('Email') }}" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                        required autocomplete="username" />
+                    <x-label for="email" value="Email" />
+                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
+                <!-- Empresa -->
                 <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}" />
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" />
+                    <x-label for="company_id" value="Empresa" />
+                    <select id="company_id" name="company_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                        <option value="">Selecione uma empresa</option>
+                        @foreach ($companies as $company)
+                            <option value="{{ $company->id }}" @selected(old('company_id') == $company->id)>
+                                {{ $company->cnpj }} - {{ $company->nome_fantasia ?? $company->razao_social }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('company_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
+                <!-- Senha -->
                 <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                        name="password_confirmation" required autocomplete="new-password" />
+                    <x-label for="password" value="Senha" />
+                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                                <div class="mt-4">
-                                    <x-label for="terms">
-                                        <div class="flex items-center">
-                                            <x-checkbox name="terms" id="terms" required />
+                <!-- Confirmação de Senha -->
+                <div class="mt-4">
+                    <x-label for="password_confirmation" value="Confirmar Senha" />
+                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                    @error('password_confirmation')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                                            <div class="ms-2">
-                                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                        'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' . __('Terms of Service') . '</a>',
-                        'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' . __('Privacy Policy') . '</a>',
-                    ]) !!}
-                                            </div>
-                                        </div>
-                                    </x-label>
-                                </div>
-                @endif
-
-                <div class="flex items-center justify-end mt-4">
-
-                    <x-button class="ms-4">
+                <div class="flex items-center justify-end mt-6 gap-4">
+                    <a href="{{ route('users.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-700 bg-white hover:bg-gray-50">Cancelar</a>
+                    <x-button>
                         {{ __('Cadastrar usuário') }}
                     </x-button>
                 </div>
@@ -61,6 +72,5 @@
         </div>
     </div>
 </div>
-
 
 @endcomponent

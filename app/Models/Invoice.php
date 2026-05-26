@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -95,5 +96,17 @@ class Invoice extends Model
     public function logs(): HasMany
     {
         return $this->hasMany(InvoiceLog::class);
+    }
+
+    /**
+     * Filtro por empresa.
+     */
+    public function scopeForCompany(Builder $query, ?int $companyId = null): Builder
+    {
+        if ($companyId === null) {
+            $companyId = auth()->user()?->company_id;
+        }
+
+        return $query->where('company_id', $companyId);
     }
 }

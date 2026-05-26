@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -80,5 +81,17 @@ class Sale extends Model
     public function invoice(): HasOne
     {
         return $this->hasOne(Invoice::class);
+    }
+
+    /**
+     * Filtro por empresa.
+     */
+    public function scopeForCompany(Builder $query, ?int $companyId = null): Builder
+    {
+        if ($companyId === null) {
+            $companyId = auth()->user()?->company_id;
+        }
+
+        return $query->where('company_id', $companyId);
     }
 }

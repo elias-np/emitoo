@@ -33,9 +33,15 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
+                <a href="{{ route('invoices.index') }}" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
                     <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7V3L8 8h5z"></path></svg>
                     <span>Faturas</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('sales.index') }}" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
+                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l1 5h13l1-5h2M16 21a2 2 0 11-4 0M7 21a2 2 0 11-4 0"></path></svg>
+                    <span>Vendas</span>
                 </a>
             </li>
             <li>

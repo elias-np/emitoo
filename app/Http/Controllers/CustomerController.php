@@ -10,7 +10,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::latest()->paginate(15);
+        $customers = Customer::forCompany()->latest()->paginate(15);
 
         return view('customers.index', compact('customers'));
     }
@@ -28,6 +28,8 @@ class CustomerController extends Controller
             $data['pais'] = 'BR';
         }
 
+        $data['company_id'] = auth()->user()->company_id;
+
         Customer::create($data);
 
         return redirect()
@@ -37,11 +39,15 @@ class CustomerController extends Controller
 
     public function edit(Customer $customer)
     {
+        $this->authorize('belong-to-company', $customer);
+
         return view('customers.edit', compact('customer'));
     }
 
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
+        $this->authorize('belong-to-company', $customer);
+
         $data = $request->validated();
 
         if (empty($data['pais'])) {
