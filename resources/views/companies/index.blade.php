@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-4">
                 <h1 class="text-xl font-semibold">Empresas</h1>
-                <a href="{{ route('companies.create') }}" class="inline-flex items-center px-4 py-2 btn-gold focus-ring-gold rounded-md text-sm">Nova Empresa</a>
+                <x-button class="ms-4" onclick="window.location='{{ route('companies.create') }}'">Nova Empresa</x-button>
             </div>
 
             <div class="bg-white overflow-hidden shadow sm:rounded-lg">
@@ -15,20 +15,14 @@
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nome</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Documento</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">E-mail</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Telefone</th>
-                                    <th class="px-4 py-2"></th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($companies as $company)
-                                    <tr>
+                                    <tr class="group clickable-row hover:bg-gray-50 cursor-pointer" data-href="{{ route('companies.edit', $company) }}" tabindex="0" role="link">
                                         <td class="px-4 py-3 text-sm text-gray-700">{{ $company->nome_fantasia ?? $company->razao_social ?? $company->trade_name ?? $company->legal_name ?? '—' }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-700">{{ $company->cnpj ?? $company->document_number ?? '—' }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-700">{{ $company->email ?? '—' }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-700">{{ $company->telefone ?? $company->phone ?? '—' }}</td>
-                                        <td class="px-4 py-3 text-right text-sm">
-                                            <a href="{{ route('companies.edit', $company) }}" class="text-amber-600 hover:text-amber-700">Ver</a>
-                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -46,4 +40,23 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('tr[data-href]').forEach(function (row) {
+                row.addEventListener('click', function (e) {
+                    if (e.target.closest('a, button, input, select, label')) return;
+                    var href = row.getAttribute('data-href');
+                    if (href) window.location = href;
+                });
+
+                row.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        var href = row.getAttribute('data-href');
+                        if (href) window.location = href;
+                    }
+                });
+            });
+        });
+    </script>
 @endcomponent

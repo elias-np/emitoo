@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
+                <a href="{{ route('users.index') }}" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
                     <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 10-8 0v4"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 20h14"></path></svg>
                     <span>Usuários</span>
                 </a>

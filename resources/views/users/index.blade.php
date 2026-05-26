@@ -1,9 +1,9 @@
-@component('layouts.app-dashboard', ['title' => 'Clientes'])
+@component('layouts.app-dashboard', ['title' => 'Usuários'])
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-4">
-                <h1 class="text-xl font-semibold">Clientes</h1>
-                <x-button class="ms-4" onclick="window.location='{{ route('customers.create') }}'">Novo Cliente</x-button>
+                <h1 class="text-xl font-semibold">Usuários</h1>
+                <x-button class="ms-4" onclick="window.location='{{ route('users.create') }}'">Novo Usuário</x-button>
             </div>
 
             <div class="bg-white overflow-hidden shadow sm:rounded-lg">
@@ -12,23 +12,23 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead>
                                 <tr>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tipo</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Nome</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Documento</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">E-mail</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Verificado</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Criado</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @forelse($customers as $customer)
-                                    <tr class="group clickable-row hover:bg-gray-50 cursor-pointer" data-href="{{ route('customers.edit', $customer) }}" tabindex="0" role="link">
-                                        <td class="px-4 py-3 text-sm text-gray-700 capitalize">{{ $customer->tipo_pessoa ?? 'fisica' }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-700">{{ $customer->nome }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-700">{{ $customer->cpf_cnpj ?? '—' }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-700">{{ $customer->email ?? '—' }}</td>
+                                @forelse($users as $user)
+                                    <tr class="group clickable-row hover:bg-gray-50 cursor-pointer" data-href="{{ route('users.edit', $user) }}" tabindex="0" role="link">
+                                        <td class="px-4 py-3 text-sm text-gray-700">{{ $user->name }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700">{{ $user->email ?? '—' }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700">{{ $user->email_verified_at ? 'Sim' : '—' }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700">{{ optional($user->created_at)->format('d/m/Y') }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="px-4 py-6 text-center text-sm text-gray-500">Nenhum cliente encontrado.</td>
+                                        <td colspan="4" class="px-4 py-6 text-center text-sm text-gray-500">Nenhum usuário encontrado.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="mt-4">
-                        {{ $customers->links() }}
+                        {{ $users->links() }}
                     </div>
                 </div>
             </div>
