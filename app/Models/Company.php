@@ -16,10 +16,17 @@ class Company extends Model
         'user_id',
         'razao_social',
         'nome_fantasia',
+        'contato',
         'cnpj',
         'inscricao_municipal',
         'inscricao_estadual',
         'regime_tributario',
+        'natureza_juridica',
+        'data_abertura',
+        'porte',
+            'cnae_primario_codigo',
+            'cnae_primario_descricao',
+            'cnaes_secundarios',
         'optante_simples_nacional',
         'incentivador_cultural',
         'endereco',
@@ -27,18 +34,19 @@ class Company extends Model
         'endereco_complemento',
         'bairro',
         'cidade',
+        'pais',
         'estado',
         'cep',
         'telefone',
         'email',
-        'certificado_digital_path',
-        'certificado_senha',
         'nfse_environment',
     ];
 
     protected $casts = [
         'optante_simples_nacional' => 'boolean',
         'incentivador_cultural' => 'boolean',
+        'data_abertura' => 'date',
+        'cnaes_secundarios' => 'array',
         'deleted_at' => 'datetime',
     ];
 
@@ -70,6 +78,11 @@ class Company extends Model
     public function importBatches(): HasMany
     {
         return $this->hasMany(ImportBatch::class);
+    }
+
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(CompanyCertificate::class)->latest('valid_to')->latest('id');
     }
 
     public function getNomeExibicaoAttribute(): string

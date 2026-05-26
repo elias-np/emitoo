@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Companies;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCompanyRequest extends FormRequest
+class UpdateCompanyRequest extends FormRequest
 {
     protected function prepareForValidation(): void
     {
@@ -51,11 +52,13 @@ class StoreCompanyRequest extends FormRequest
 
     public function rules(): array
     {
+        $companyId = $this->route('company') ? $this->route('company')->id : null;
+
         return [
             'razao_social' => ['required', 'string', 'max:255'],
             'nome_fantasia' => ['nullable', 'string', 'max:255'],
             'contato' => ['nullable', 'string', 'max:255'],
-            'cnpj' => ['required', 'digits:14', 'unique:companies,cnpj'],
+            'cnpj' => ['required', 'digits:14', Rule::unique('companies', 'cnpj')->ignore($companyId)],
             'inscricao_municipal' => ['nullable', 'string', 'max:50'],
             'inscricao_estadual' => ['nullable', 'string', 'max:50'],
             'regime_tributario' => ['required', 'string', 'in:Simples Nacional,Lucro Presumido,Lucro Real,MEI'],
@@ -89,6 +92,7 @@ class StoreCompanyRequest extends FormRequest
             'telefone' => ['nullable', 'string', 'max:30'],
             'email' => ['nullable', 'email', 'max:255'],
             'nfse_environment' => ['nullable', 'string', 'in:producao,homologacao'],
+            'active_tab' => ['nullable', 'string', 'in:tab-dados,tab-cnae,tab-certificados'],
         ];
     }
 }

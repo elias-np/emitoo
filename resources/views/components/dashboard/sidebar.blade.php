@@ -21,9 +21,15 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
+                <a href="{{ route('companies.index') }}" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
                     <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"></path></svg>
                     <span>Empresas</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('customers.index') }}" class="flex items-center gap-3 px-3 py-2 rounded text-gray-700 hover:bg-amber-50 hover:text-amber-600">
+                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5V4H2v16h5"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20v-6a3 3 0 016 0v6"></path></svg>
+                    <span>Clientes</span>
                 </a>
             </li>
             <li>

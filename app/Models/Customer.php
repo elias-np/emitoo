@@ -11,10 +11,13 @@ class Customer extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'tipo_pessoa',
+        'apelido',
         'nome',
         'email',
         'cpf_cnpj',
         'telefone',
+        'whatsapp',
         'endereco',
         'endereco_numero',
         'endereco_complemento',
