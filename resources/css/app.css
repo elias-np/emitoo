@@ -5,3 +5,68 @@
 [x-cloak] {
     display: none;
 }
+
+:root {
+    --color-gold-50: #fefde8;
+    --color-gold-100: #fffcc2;
+    --color-gold-200: #fff687;
+    --color-gold-300: #ffe943;
+    --color-gold-400: #ffd702;
+    --color-gold-500: #efc003;
+    --color-gold-600: #ce9400;
+    --color-gold-700: #a46904;
+    --color-gold-800: #88530b;
+    --color-gold-900: #734310;
+    --color-gold-950: #432305;
+
+    --color-success: #039855;
+    --color-danger: #d92d20;
+
+    --color-bg: #fffdf7;
+    --color-surface: #ffffff;
+    --color-surface-soft: #f5f5f3;
+
+    --color-text: #111827;
+    --color-text-muted: #6b7280;
+    --color-text-soft: #9ca3af;
+
+    --color-border: #e5e7eb;
+    --color-border-strong: #d1d5db;
+}
+
+/* Login / branding helpers using gold tokens */
+.btn-gold {
+    background: var(--color-gold-400);
+    color: #0b0b0b;
+}
+.btn-gold:hover {
+    background: var(--color-gold-500);
+}
+
+.input-gold {
+    border-color: var(--color-border);
+}
+.input-gold:focus {
+    border-color: var(--color-gold-600);
+    
+    outline: none;
+}
+
+.login-right {
+    background: linear-gradient(180deg, var(--color-gold-400) 0%, var(--color-gold-600) 100%);
+    color: var(--color-text);
+}
+
+.login-right svg { opacity: .95 }
+
+/* Link and text helpers using gold tokens */
+.link-gold {
+    color: var(--color-gold-400);
+}
+.link-gold:hover {
+    color: var(--color-gold-500);
+}
+.focus-ring-gold:focus {
+    box-shadow: 0 0 0 3px rgba(255, 215, 2, 0.15);
+    outline: none;
+}
